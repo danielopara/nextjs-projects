@@ -14,6 +14,15 @@ const Header = () => {
           </NavLink>
 
           <div className="mr-7 ml-auto flex flex-row gap-4">
+            {pathName === "/" && (
+              <NavLink
+                className="px-4 py-2 bg-indigo-600 rounded-md text-white hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-400 focus:outline-none transition-all duration-200"
+                href="/login"
+              >
+                Login
+              </NavLink>
+            )}
+
             {pathName === "/login" && (
               <NavLink
                 className="px-4 py-2 bg-indigo-600 rounded-md text-white hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-400 focus:outline-none transition-all duration-200"
