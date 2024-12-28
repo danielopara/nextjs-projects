@@ -1,6 +1,7 @@
 "use client";
 import React, { ChangeEvent, useState, FormEvent } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import ApiResponse from "../lib/ApiResponse";
 import { toast } from "react-toastify";
 
 interface FormData {
@@ -10,13 +11,6 @@ interface FormData {
   phoneNumber: string;
   password: string;
   confirmPassword: string;
-}
-
-interface ApiResponse {
-  statusCode: number;
-  description: string;
-  message: string;
-  success: boolean;
 }
 
 const Register = () => {
@@ -71,7 +65,7 @@ const Register = () => {
       };
 
       const response = await fetch(
-        "http://localhost:3001/api/v1/user/register",
+        "http://localhost:3002/api/v1/user/register",
         {
           method: "POST",
           headers: {
@@ -84,6 +78,7 @@ const Register = () => {
       const data: ApiResponse = await response.json();
 
       if (response.ok) {
+        setSuccessMessage("Success!!!");
         toast.success("User created Successfully!!!", {
           position: "top-right",
           autoClose: 3000,
@@ -95,7 +90,7 @@ const Register = () => {
 
         setTimeout(() => {
           window.location.href = "/login";
-        }, 5000);
+        }, 3000);
       }
       if (data.statusCode === 406) {
         toast.error(data.description, {

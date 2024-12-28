@@ -2,18 +2,11 @@
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { toast } from "react-toastify"; // Add toast import
+import ApiResponse from "../lib/ApiResponse";
 
 interface FormData {
   email: string;
   password: string;
-}
-
-interface ApiResponse {
-  statusCode: number;
-  description: string;
-  message: string;
-  success: boolean;
-  error: string;
 }
 
 const Login = () => {
@@ -54,7 +47,7 @@ const Login = () => {
         password: formData.password,
       };
 
-      const response = await fetch("http://localhost:3001/api/v1/user/login", {
+      const response = await fetch("http://localhost:3002/api/v1/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -66,7 +59,11 @@ const Login = () => {
 
       if (data.statusCode === 200) {
         console.log(data);
-        toast.success("Login successful!");
+        localStorage.setItem("token", data.data);
+        toast.success("Login successful!", {
+          closeOnClick: true,
+          autoClose: 3000,
+        });
       } else {
         toast.error(data.error, {
           autoClose: false,
